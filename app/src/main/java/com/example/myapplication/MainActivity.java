@@ -15,22 +15,28 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-private ArrayList<Plan>planArrayList;
+private List<String> planList;
 private RecyclerView recyclerView;
+private PlanAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-planArrayList=new ArrayList<>();
-recyclerView=findViewById(R.id.plan);
+planList=new ArrayList<>();
+recyclerView=findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LayoutManager(this));
+        adapter =new planAdapter(planList);
+        recyclerView.setAdapter(adapter);
         Button btn=findViewById(R.id.btnPlan);
         EditText editText=findViewById(R.id.tplan);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                planArrayList.add(new Plan("",false));
+                planList.add(String.valueOf(new Plan("",false)));
+                adapter.notifyPlanIserted(planList.size()-1);
             }
         });
 setPlan();
@@ -38,14 +44,14 @@ setAdapter();
                 }
     private void setAdapter() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
+
         recyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
     private void setPlan(){
-        planArrayList.add(new Plan("Go Shopping",false));
-                    planArrayList.add(new Plan("Play video games",true));
-                    planArrayList.add(new Plan("Watch Soccer",false));
-                    planArrayList.add(new Plan("Finish my project",false));
+        planList.add(String.valueOf(new Plan("Go Shopping",false)));
+                    planList.add(String.valueOf(new Plan("Play video games",true)));
+                    planList.add(String.valueOf(new Plan("Watch Soccer",false)));
+                    planList.add(String.valueOf(new Plan("Finish my project",false)));
                 }
             }

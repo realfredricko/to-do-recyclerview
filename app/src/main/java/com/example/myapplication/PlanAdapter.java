@@ -10,19 +10,25 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.BreakIterator;
-import java.util.ArrayList;
+import java.util.List;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.myViewHolder> {
-    private ArrayList<Plan>planList;
+    private List<String> planList;
     public EditText lsTitle;
     public CheckBox cbCheckBox;
 
-    public PlanAdapter(ArrayList<Plan>planList){
-        this.planList=planList;
+    public PlanAdapter(List<String>planList){
+       this.planList=planList;
     }
-       class myViewHolder extends RecyclerView.ViewHolder{
-           public myViewHolder() {
 
+    public void notifyPlanIserted(int i) {
+    }
+
+    class myViewHolder extends RecyclerView.ViewHolder{
+        EditText editText;
+
+        public myViewHolder(View planView) {
+editText=editText.findViewById(R.id.lsTitle);
            }
        }
 
@@ -44,8 +50,9 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.myViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
+        String title=planList.get(position);
         holder.editText.setText((CharSequence) planList);
-        String title=planList.get(position).getTitle();
+
     }
 
 
